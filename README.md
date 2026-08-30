@@ -1,11 +1,11 @@
-<img src="https://github.com/user-attachments/assets/eb509032-7d25-4acb-b594-e365c3ade9ed" width="88" align="left" alt="clip icon">
+<img src="https://github.com/user-attachments/assets/eb509032-7d25-4acb-b594-e365c3ade9ed" width="110" align="left" alt="clip icon">
+
+<br clear="left">
 
 # clip
 
-
 A string and a socket. One in-memory paste buffer per path, shared over HTTP.
 
-<br clear="left">
 
 ```sh
 cargo run --release                 # serve :1984
