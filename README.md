@@ -1,5 +1,5 @@
 # clip
-
+<img width="500" height="500" alt="clip" src="https://github.com/user-attachments/assets/eb509032-7d25-4acb-b594-e365c3ade9ed" />
 A string and a socket. One in-memory paste buffer per path, shared over HTTP.
 
 ```sh
