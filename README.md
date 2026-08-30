@@ -9,6 +9,8 @@
 
 One live string for people, laptops, and agents.
 
+Clip is a tiny shared clipboard that lets browsers, terminals, laptops, and agents pass text through the same live unified buffer using plain HTTP. It keeps one string per room in memory, broadcasts changes instantly, and can sync a system clipboard so ```copy``` on one computer becomes ```paste``` on another.
+
 <a href="https://github.com/Luthiraa/clip/releases/tag/v0.2.0"><img alt="release v0.2.0" src="https://img.shields.io/badge/release-v0.2.0-111?style=flat-square"></a>
 
 <br clear="left">
