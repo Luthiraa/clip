@@ -1,5 +1,6 @@
 <img src="https://github.com/user-attachments/assets/eb509032-7d25-4acb-b594-e365c3ade9ed" width="88" align="left" alt="clip icon">
 
+
 # clip
 
 A string and a socket. One in-memory paste buffer per path, shared over HTTP.
