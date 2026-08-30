@@ -1,21 +1,22 @@
 # clip
 
-One paste buffer shared by a browser, a laptop, and an agent. Every write replaces the previous value and disappears after 20 seconds.
-
-Open the app. It creates an unguessable room in the URL; share that exact URL with the other device or agent.
+A string and a socket. One in-memory paste buffer per path, shared over HTTP.
 
 ```sh
-# read
-./bin/clip 'ROOM_URL'
-
-# write
-pbpaste | ./bin/clip 'ROOM_URL'
-
-# copy into the macOS clipboard
-./bin/clip 'ROOM_URL' | pbcopy
-
-# clear
-./bin/clip 'ROOM_URL' clear
+cargo run --release                 # serve :1984
+echo hi | cargo run --release       # write /
+cargo run --release -- get          # read /raw
+cargo run --release -- follow       # stream /events
 ```
 
-`CLIP_ROOM=ROOM_URL` can replace the first argument. The HTTP API is `GET`, `PUT`, and `DELETE /api/clip?k=ROOM_KEY`; `PUT` accepts plain text up to 256 KiB.
+Open `http://127.0.0.1:1984`. Rooms are paths:
+
+```sh
+curl -X PUT --data-binary 'hello' http://127.0.0.1:1984/r/team
+curl http://127.0.0.1:1984/r/team/raw
+curl -N http://127.0.0.1:1984/r/team/events
+```
+
+The binary accepts the same room as its last argument: `clip get team`, `clip follow team`, or `echo hi | clip set team`. `CLIP_URL` selects the server and `CLIP_ROOM` selects the room.
+
+There is no database and no history. Restarting the process clears every room.

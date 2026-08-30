@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>clip</title>
+<style>
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:#050505;color:#f2f2ed;font:14px ui-monospace,SFMono-Regular,Menlo,monospace;padding:18px}
+main{height:100%;display:grid;grid-template-rows:auto 1fr;gap:14px}
+header{display:flex;justify-content:space-between;color:#777}
+b{color:#f2f2ed}
+textarea{width:100%;height:100%;resize:none;border:1px solid #242424;outline:0;background:#090909;color:#f2f2ed;padding:24px;font:clamp(18px,3vw,34px)/1.45 inherit}
+textarea:focus{border-color:#555}
+</style>
+<main>
+  <header><b>clip</b><span id="state">connecting</span></header>
+  <textarea autofocus spellcheck="false" placeholder="paste"></textarea>
+</main>
+<script>
+const box=document.querySelector('textarea'),state=document.querySelector('#state');
+const room=location.pathname==='/'?'':location.pathname.replace(/\/$/,'');
+const events=new EventSource((room||'')+'/events');
+events.onopen=()=>state.textContent='live';
+events.onerror=()=>state.textContent='reconnecting';
+events.onmessage=e=>{if(box.value!==e.data)box.value=e.data};
+let write;
+box.oninput=()=>{
+  state.textContent='writing';
+  clearTimeout(write);
+  write=setTimeout(()=>fetch(room||'/',{method:'PUT',body:box.value})
+    .then(()=>state.textContent='live')
+    .catch(()=>state.textContent='offline'),50);
+};
+</script>
+</html>
